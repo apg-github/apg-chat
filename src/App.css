@@ -1,3 +1,7 @@
+* {
+  font-family: "Quantico", sans-serif;
+}
+
 .App {
   text-align: center;
   max-width: 728px;
@@ -16,8 +20,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 99;
-  padding: 10px;
+  z-index: 2;
+  padding: 2.5rem;
   box-sizing: border-box;
 }
 
@@ -95,9 +99,10 @@ button:disabled {
 }
 
 .sign-in {
-  color: #282c34;
-  background: white;
-  max-width: 400px;
+  color: #ffffff;
+  background: #e24c4c;
+  max-width: 500px;
+  min-width: 500px;
   margin: 0 auto;
 }
 
@@ -142,4 +147,10 @@ img {
   height: 40px;
   border-radius: 50%;
   margin: 2px 5px;
+}
+
+@media (max-width: 620px) {
+  .App header h1 {
+    display: none;
+  }
 }

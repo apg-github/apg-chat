@@ -5,7 +5,6 @@ import "firebase/firestore";
 import "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { isCompositeComponent } from "react-dom/test-utils";
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
@@ -28,11 +27,15 @@ function SignIn() {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   };
-  return <button onClick={signInWithGoogle}>Sign in with Google</button>;
+  return (
+    <button className="sign-in" onClick={signInWithGoogle}>
+      Sign in with Google
+    </button>
+  );
 }
 
 function SignOut() {
-  return auth.currentUser && <button onClick={() => auth.signOut()}>Sign out from chat</button>;
+  return auth.currentUser && <button onClick={() => auth.signOut()}>Sign out</button>;
 }
 
 function ChatRoom(props) {
@@ -109,7 +112,7 @@ function App() {
 
   return (
     <div className="App">
-      <header style={{ padding: "2.5em" }}>
+      <header style={{}}>
         <h1>⚛️🔥💬</h1>
         {user ? (
           <>
@@ -117,7 +120,7 @@ function App() {
             <button onClick={() => changeRoom(2)}>Room 2</button>
           </>
         ) : (
-          <h1>APG Chat - sign in first</h1>
+          <h2>APG Chat</h2>
         )}
 
         <SignOut />
