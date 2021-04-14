@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
@@ -38,13 +38,15 @@ function SignOut() {
 function ChatRoom(props) {
   const dummy = useRef();
   const messageRef =
-    props.room === 1
-      ? firestore.collection("channel_alpha")
-      : firestore.collection("channel_beta");
+    props.room === 1 ? firestore.collection("channel_alpha") : firestore.collection("channel_beta");
   const query = messageRef.orderBy("createdAt").limit(25);
 
   const [messages] = useCollectionData(query, { idField: "id" });
   const [formValue, setFormValue] = useState("");
+
+  useEffect(() => {
+    dummy.current.scrollIntoView({ behavior: "smooth" });
+  });
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -74,7 +76,6 @@ function ChatRoom(props) {
           onChange={(e) => setFormValue(e.target.value)}
           placeholder="say something nice"
         />
-
         <button type="submit" disabled={!formValue}>
           Send
         </button>
@@ -104,8 +105,8 @@ function ChatMessage(props) {
 
 function App() {
   const [user] = useAuthState(auth);
-  const [room, changeRoom] = useState(1)
-  
+  const [room, changeRoom] = useState(1);
+
   return (
     <div className="App">
       <header style={{ padding: "2.5em" }}>
