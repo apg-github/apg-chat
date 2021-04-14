@@ -5,7 +5,7 @@
 }
 
 .App header {
-  background-color: #181717;
+  background-color: #e24c4c;
   height: 10vh;
   min-height: 50px;
   color: white;
@@ -26,7 +26,7 @@
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
-  background-color: rgb(40, 37, 53);
+  background-color: rgb(46, 45, 56);
 }
 
 main {
@@ -63,7 +63,7 @@ form {
 
 form button {
   width: 20%;
-  background-color: rgb(56, 56, 143);
+  background-color: #e24c4c;
 }
 
 input {
@@ -78,7 +78,7 @@ input {
 }
 
 button {
-  background-color: #282c34; /* Green */
+  background-color: #282c34;
   border: none;
   color: white;
   padding: 15px 32px;
