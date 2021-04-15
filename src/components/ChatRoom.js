@@ -12,6 +12,7 @@ export function ChatRoom(props) {
 
   const [messages] = useCollectionData(query, { idField: "id" });
   const [formValue, setFormValue] = useState("");
+  const [timestamp, setTimestamp] = useState("");
 
   useEffect(() => {
     dummy.current.scrollIntoView({ behavior: "smooth" });
@@ -28,7 +29,6 @@ export function ChatRoom(props) {
       uid,
       photoURL,
     });
-
     setFormValue("");
     dummy.current.scrollIntoView({ behavior: "smooth" });
   };
@@ -36,7 +36,8 @@ export function ChatRoom(props) {
   return (
     <>
       <main style={{ paddingTop: "2em" }}>
-        {messages && messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
+        {messages &&
+          messages.map((msg) => <ChatMessage key={msg.id} message={msg} timestamp={timestamp} />)}
         <span ref={dummy}></span>
       </main>
       <form onSubmit={sendMessage}>
