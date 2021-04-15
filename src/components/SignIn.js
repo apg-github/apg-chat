@@ -1,8 +1,9 @@
-import { auth, firebaseApp } from "../App";
+import { auth } from "../App";
+import firebase from "firebase/app";
 
 export function SignIn() {
   const signInWithGoogle = () => {
-    const provider = new firebaseApp.auth.GoogleAuthProvider();
+    const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   };
   return (

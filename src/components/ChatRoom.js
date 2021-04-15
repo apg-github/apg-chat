@@ -1,5 +1,6 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { firestore, auth, firebaseApp } from "../App";
+import firebase from "firebase/app";
+import { firestore, auth } from "../App";
 import React, { useRef, useState, useEffect } from "react";
 import { ChatMessage } from "./ChatMessage";
 
@@ -23,7 +24,7 @@ export function ChatRoom(props) {
 
     await messageRef.add({
       text: formValue,
-      createdAt: firebaseApp.firestore.FieldValue.serverTimestamp(),
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
       photoURL,
     });

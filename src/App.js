@@ -9,10 +9,8 @@ import { SignOut } from "./components/SignOut";
 import { SignIn } from "./components/SignIn";
 import { ChatRoom } from "./components/ChatRoom";
 
-export let firebaseApp;
-
 if (!firebase.apps.length) {
-  firebaseApp = firebase.initializeApp({
+  firebase.initializeApp({
     apiKey: "AIzaSyApsdXWCslizIMjbe4A3RSj6eebLC7TCP8",
     authDomain: "apg-chat.firebaseapp.com",
     projectId: "apg-chat",
@@ -21,7 +19,7 @@ if (!firebase.apps.length) {
     appId: "1:911590173882:web:38f73246b4d6f148e36683",
   });
 } else {
-  firebaseApp = firebase.app(); // if already initialized, use that one
+  firebase.app(); // if already initialized, use that one
 }
 
 export const auth = firebase.auth();
