@@ -5,7 +5,9 @@ live demo: https://apg-chat.netlify.app/
 Features:
 Multiple rooms, signing in by Google Accounts, messages timestamps on hover, mobile friendly
 
-![ScreenShot](https://i.ibb.co/QkgFHtd/apg-chat-opened.jpg)
+![ScreenShot](https://i.ibb.co/fYGv49T/apg-chat-1.png)
+
+![ScreenShot](https://i.ibb.co/WD0xKLd/apg-chat-2.png)
 
 ## Available scripts
 
