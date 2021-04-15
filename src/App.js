@@ -5,7 +5,8 @@ import "firebase/firestore";
 import "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-
+import Particles from "react-particles-js";
+import "./App.css";
 if (!firebase.apps.length) {
   firebase.initializeApp({
     apiKey: "AIzaSyApsdXWCslizIMjbe4A3RSj6eebLC7TCP8",
@@ -127,6 +128,39 @@ function App() {
       </header>
 
       <section>{user ? <ChatRoom room={room} /> : <SignIn />}</section>
+
+      <Particles
+        params={{
+          particles: {
+            line_linked: {
+              color: "#000000",
+            },
+            number: {
+              value: 150,
+            },
+            size: {
+              value: 5,
+            },
+          },
+          interactivity: {
+            events: {
+              onhover: {
+                enable: true,
+                mode: "repulse",
+              },
+            },
+          },
+        }}
+        style={{
+          position: "absolute",
+          top: "0",
+          height: "0",
+          zIndex: "-1",
+          height: "100px",
+          width: "100%",
+          background: `#ff0000`,
+        }}
+      />
     </div>
   );
 }
