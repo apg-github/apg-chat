@@ -1,14 +1,18 @@
 import "./App.css";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollectionData } from "react-firebase-hooks/firestore";
 import Particles from "react-particles-js";
-import "./App.css";
+import { SignOut } from "./components/SignOut";
+import { SignIn } from "./components/SignIn";
+import { ChatRoom } from "./components/ChatRoom";
+
+export let firebaseApp;
+
 if (!firebase.apps.length) {
-  firebase.initializeApp({
+  firebaseApp = firebase.initializeApp({
     apiKey: "AIzaSyApsdXWCslizIMjbe4A3RSj6eebLC7TCP8",
     authDomain: "apg-chat.firebaseapp.com",
     projectId: "apg-chat",
@@ -17,105 +21,11 @@ if (!firebase.apps.length) {
     appId: "1:911590173882:web:38f73246b4d6f148e36683",
   });
 } else {
-  firebase.app(); // if already initialized, use that one
+  firebaseApp = firebase.app(); // if already initialized, use that one
 }
 
-const auth = firebase.auth();
-const firestore = firebase.firestore();
-
-function SignIn() {
-  const signInWithGoogle = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider);
-  };
-  return (
-    <button className="sign-in" onClick={signInWithGoogle}>
-      Sign in with Google
-    </button>
-  );
-}
-
-function SignOut() {
-  return auth.currentUser && <button onClick={() => auth.signOut()}>Sign out</button>;
-}
-
-function ChatRoom(props) {
-  const dummy = useRef();
-  const messageRef =
-    props.room === 1 ? firestore.collection("channel_alpha") : firestore.collection("channel_beta");
-  const query = messageRef.orderBy("createdAt").limit(25);
-
-  const [messages] = useCollectionData(query, { idField: "id" });
-  const [formValue, setFormValue] = useState("");
-
-  useEffect(() => {
-    dummy.current.scrollIntoView({ behavior: "smooth" });
-  });
-
-  const sendMessage = async (e) => {
-    e.preventDefault();
-
-    const { uid, photoURL } = auth.currentUser;
-
-    await messageRef.add({
-      text: formValue,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      uid,
-      photoURL,
-    });
-
-    setFormValue("");
-    dummy.current.scrollIntoView({ behavior: "smooth" });
-  };
-
-  return (
-    <>
-      <main style={{ paddingTop: "2em" }}>
-        {messages && messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
-        <span ref={dummy}></span>
-      </main>
-      <form onSubmit={sendMessage}>
-        <input
-          value={formValue}
-          onChange={(e) => setFormValue(e.target.value)}
-          placeholder="say something nice"
-        />
-        <button type="submit" disabled={!formValue}>
-          Send
-        </button>
-      </form>
-    </>
-  );
-}
-
-function ChatMessage(props) {
-  const { text, uid, photoURL } = props.message;
-  const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
-
-  return (
-    <>
-      <div className={`message ${messageClass}`}>
-        <img
-          src={
-            photoURL ||
-            "https://previews.123rf.com/images/juliarstudio/juliarstudio1512/juliarstudio151200391/49020838-boy-avatar-simple-icon-for-web-and-mobile-devices.jpg"
-          }
-        />
-        <p>
-          {text.match(
-            /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(:[0-9]+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/
-          ) ? (
-            <a href={text} target="_blank">
-              {text}
-            </a>
-          ) : (
-            text
-          )}
-        </p>
-      </div>
-    </>
-  );
-}
+export const auth = firebase.auth();
+export const firestore = firebase.firestore();
 
 function App() {
   const [user] = useAuthState(auth);
