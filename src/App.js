@@ -101,7 +101,17 @@ function ChatMessage(props) {
             "https://previews.123rf.com/images/juliarstudio/juliarstudio1512/juliarstudio151200391/49020838-boy-avatar-simple-icon-for-web-and-mobile-devices.jpg"
           }
         />
-        <p>{text}</p>
+        <p>
+          {text.match(
+            /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(:[0-9]+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/
+          ) ? (
+            <a href={text} target="_blank">
+              {text}
+            </a>
+          ) : (
+            text
+          )}
+        </p>
       </div>
     </>
   );
@@ -123,7 +133,6 @@ function App() {
         ) : (
           <h2>APG Chat</h2>
         )}
-
         <SignOut />
       </header>
 
@@ -136,29 +145,20 @@ function App() {
               color: "#000000",
             },
             number: {
-              value: 150,
+              value: 100,
             },
             size: {
-              value: 5,
-            },
-          },
-          interactivity: {
-            events: {
-              onhover: {
-                enable: true,
-                mode: "repulse",
-              },
+              value: 10,
             },
           },
         }}
         style={{
           position: "absolute",
           top: "0",
-          height: "0",
+          left: "0",
           zIndex: "-1",
-          height: "100px",
-          width: "100%",
-          background: `#ff0000`,
+          height: "100vh",
+          width: "100vw",
         }}
       />
     </div>
